@@ -45,7 +45,11 @@ ping
 
 /////////////////////////////////////////////////////
 
+            42. Cache yapısının entegre edilmesi-1
 
+Decorator Design Pattern kullanarak, Repositorylerimize yeni cache mekanizamasını oluşturalım.
+
+ProductRepositoryWithCacheDecorator.cs oluşturduk.
 
 
 

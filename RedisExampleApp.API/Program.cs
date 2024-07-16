@@ -14,7 +14,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductRepository>(sp =>
+{
+    var appDbContext = sp.GetRequiredService<AppDbContext>();
+    var productRepository = new ProductRepository(appDbContext);
+    var redisService = sp.GetRequiredService<RedisService>();
+
+    return new ProductRepositoryWithCacheDecorator(productRepository, redisService);
+});
+
 builder.Services.AddDbContext<AppDbContext>(opt =>
 {
     opt.UseInMemoryDatabase("myDatabase");
